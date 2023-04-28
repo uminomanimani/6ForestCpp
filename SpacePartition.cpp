@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 
+//对应python代码中的DHC函数
 std::vector<std::vector<std::vector<int>>> SpacePartition(std::vector<std::vector<int>>& arrs, int beta = 16)
 {
     std::queue<std::vector<std::vector<int>>> q;
@@ -23,9 +24,7 @@ std::vector<std::vector<std::vector<int>>> SpacePartition(std::vector<std::vecto
         {
             std::vector<std::vector<int>> tmp;
             for(auto& i : split)
-            {
                 tmp.push_back(front[i]);
-            }
             q.push(tmp);
         }
     }
@@ -69,21 +68,18 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
     int maxCoveringIndex = 0;
     int maxCovering = -1;
     for(size_t i = 0; i < covering.size(); ++i)
-    {
         if(covering[i] > maxCovering)
         {
             maxCovering = covering[i];
             maxCoveringIndex = i;
         }
-    }
     if(maxCovering - leftMostCovering <= maxCoveringIndex - leftMostIndex)
         maxCoveringIndex = leftMostIndex;
     
     std::vector<int> yetAnotherSplits(16);
     for(const auto& arr : arrs)
-    {
         yetAnotherSplits[arr[maxCoveringIndex]]++;
-    }
+
     std::vector<int> nonZeroHexOfyetAnotherSplits;     //python代码里的splits_nibble
     for(size_t i = 0; i < yetAnotherSplits.size(); ++i)
         if(yetAnotherSplits[i] != 0)
@@ -94,14 +90,13 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
     {
         std::vector<int> p;
         for(size_t i = 0; i < arrs.size(); ++i)
-        {
             if(arrs[i][maxCoveringIndex] == nibble) p.push_back(i);
-        }
         clustring.push_back(p);
     }
     return clustring;
 }
 
+//对应python代码中的maxcovering函数
 std::string ClustringRegions(const std::vector<std::vector<int>>& arrs)
 {
     std::string addressSpace;
@@ -125,9 +120,7 @@ std::string ClustringRegions(const std::vector<std::vector<int>>& arrs)
         }
 
         if(numOfGreaterThanZero == 1)
-        {
             addressSpace.push_back(intToHexChar(indexOfGreaterThanZero));
-        }
         else
             addressSpace.push_back('*');
     }
@@ -150,9 +143,7 @@ void test(const std::string& path)
     {
         std::vector<int> arr;
         for(auto& i : line)
-        {
             arr.push_back(hexCharToInt(i));
-        }
         arrs.push_back(arr);
     }
     input.close();

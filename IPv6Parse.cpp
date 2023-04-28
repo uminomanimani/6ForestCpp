@@ -11,9 +11,7 @@ std::string Parse(const std::string& IPv6String)
     for(decltype(r.begin()) iter = r.begin(); iter != r.end(); ++iter) 
     {
         if(iter->size() == 0)
-        {
             parsedValue.append(iter == r.begin() || iter == r.end() - 1 ? 4 : (8 - r.size() + 1) * 4, '0');
-        }
         else if(iter->size() < 4)
         {
             parsedValue.append(4 - iter->size(), '0');
