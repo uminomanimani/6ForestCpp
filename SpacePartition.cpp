@@ -1,7 +1,11 @@
 #include "include/SpacePartition.h"
+#include "include/utils.h"
 #include <queue>
+#include <string>
+#include <fstream>
+#include <iostream>
 
-std::vector<std::vector<std::vector<int>>> SpacePartition(const std::vector<std::vector<int>>& arrs, int beta = 16)
+std::vector<std::vector<std::vector<int>>> SpacePartition(std::vector<std::vector<int>>& arrs, int beta = 16)
 {
     std::queue<std::vector<std::vector<int>>> q;
     q.push(arrs);
@@ -22,7 +26,7 @@ std::vector<std::vector<std::vector<int>>> SpacePartition(const std::vector<std:
             {
                 tmp.push_back(front[i]);
             }
-            regionArrs.push_back(tmp);
+            q.push(tmp);
         }
     }
     return regionArrs;
@@ -57,7 +61,6 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
             if(leftMostIndex == -1)
             {
                 leftMostIndex = i;
-                int s = 0;
                 leftMostCovering = s;
             }
             covering.push_back(s);
@@ -97,4 +100,68 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
         clustring.push_back(p);
     }
     return clustring;
+}
+
+std::string ClustringRegions(const std::vector<std::vector<int>>& arrs)
+{
+    std::string addressSpace;
+    
+
+    for(int i = 0; i < 32; ++i)
+    {
+        std::vector<int> splits(16);
+        for(const auto& arr : arrs)
+            splits[arr[i]]++;
+
+        int numOfGreaterThanZero = 0;
+        int indexOfGreaterThanZero = 0;
+        for(size_t j = 0; j < splits.size(); ++j)
+        {
+            if(splits[j] > 0)
+            {
+                ++numOfGreaterThanZero;
+                indexOfGreaterThanZero = j;
+            }
+        }
+
+        if(numOfGreaterThanZero == 1)
+        {
+            addressSpace.push_back(intToHexChar(indexOfGreaterThanZero));
+        }
+        else
+            addressSpace.push_back('*');
+    }
+    return addressSpace;
+}
+
+void test(const std::string& path)
+{
+    std::cout << path << std::endl;
+    std::ifstream input(path);
+    if(!input.is_open())
+    {
+        std::cerr << "Oops, failed to open file." << std::endl;
+        return;
+    }
+    std::string line;
+    std::vector<std::vector<int>> arrs;
+
+    while(getline(input, line))
+    {
+        std::vector<int> arr;
+        for(auto& i : line)
+        {
+            arr.push_back(hexCharToInt(i));
+        }
+        arrs.push_back(arr);
+    }
+    input.close();
+    auto results = SpacePartition(arrs);
+    int p = 0;
+    for(auto& r : results)
+    {
+        std::cout << ClustringRegions(r) << std::endl;
+        std::cout << "-------------------------" << std::endl;
+    }
+    std::cout << results.size() << std::endl;
 }
