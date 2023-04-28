@@ -148,7 +148,6 @@ void test(const std::string& path)
     }
     input.close();
     auto results = SpacePartition(arrs);
-    int p = 0;
     for(auto& r : results)
     {
         std::cout << ClustringRegions(r) << std::endl;

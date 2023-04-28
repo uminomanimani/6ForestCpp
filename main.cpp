@@ -9,6 +9,19 @@ using namespace std;
 
 int main()
 {
-    test("../seeds.parse");
+    ifstream input("./seeds");
+    ofstream output("./seeds.parse");
+
+    string line;
+    while(getline(input, line))
+    {
+        std::string parsed = Parse(line);
+        output << parsed << endl;
+    }
+
+    input.close();
+    output.close();
+
+    test("./seeds.parse");
     return 0;
 }
