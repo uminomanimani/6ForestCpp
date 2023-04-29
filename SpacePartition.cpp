@@ -19,7 +19,7 @@ std::vector<std::vector<std::vector<int>>> SpacePartition(std::vector<std::vecto
             regionArrs.push_back(front);
             continue;
         }
-        auto splits = SeedClustering(front);
+        auto splits = std::move(SeedClustering(front));
         for(auto& split : splits)
         {
             std::vector<std::vector<int>> tmp;
@@ -31,6 +31,7 @@ std::vector<std::vector<std::vector<int>>> SpacePartition(std::vector<std::vecto
     return regionArrs;
 }
 
+//对应python代码中的maxcovering函数
 std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>& arrs)
 {
     std::vector<int> covering;
@@ -96,7 +97,7 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
     return clustring;
 }
 
-//对应python代码中的maxcovering函数
+//对应python代码中的show_region函数
 std::string ClustringRegions(const std::vector<std::vector<int>>& arrs)
 {
     std::string addressSpace;

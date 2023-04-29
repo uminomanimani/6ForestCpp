@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <cassert>
 
 std::vector<std::string> Split(const std::string& s, char seperator);
 

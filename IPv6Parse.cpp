@@ -6,7 +6,7 @@
 
 std::string Parse(const std::string& IPv6String)
 {
-    std::vector<std::string> r = Split(IPv6String, ':');
+    std::vector<std::string> r = std::move(Split(IPv6String, ':'));
     std::string parsedValue;
     for(decltype(r.begin()) iter = r.begin(); iter != r.end(); ++iter) 
     {

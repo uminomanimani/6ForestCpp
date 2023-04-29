@@ -15,7 +15,7 @@ int main()
     string line;
     while(getline(input, line))
     {
-        std::string parsed = Parse(line);
+        std::string parsed = std::move(Parse(line));
         output << parsed << endl;
     }
 
