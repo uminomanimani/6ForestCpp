@@ -42,14 +42,14 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
         std::vector<int> t;
         for(const auto& arr : arrs)
             t.push_back(arr[i]);
-        std::vector<int> splits(16);
+        std::vector<int> counter(16);
         for(const auto& hex : t)
-            splits[hex]++;
+            counter[hex]++;
 
         int nonZero = 0;
         //s是所有出现过，但出现次数不为1的十六进制数的次数之和
         int s = 0;
-        for(const auto& x : splits)
+        for(const auto& x : counter)
         {
             if(x != 0) ++nonZero;
             if(x != 1) s += x;
@@ -77,17 +77,17 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
     if(maxCovering - leftMostCovering <= maxCoveringIndex - leftMostIndex)
         maxCoveringIndex = leftMostIndex;
     
-    std::vector<int> yetAnotherSplits(16);
+    std::vector<int> yetAnotherCounter(16);
     for(const auto& arr : arrs)
-        yetAnotherSplits[arr[maxCoveringIndex]]++;
+        yetAnotherCounter[arr[maxCoveringIndex]]++;
 
-    std::vector<int> nonZeroHexOfyetAnotherSplits;     //python代码里的splits_nibble
-    for(size_t i = 0; i < yetAnotherSplits.size(); ++i)
-        if(yetAnotherSplits[i] != 0)
-            nonZeroHexOfyetAnotherSplits.push_back(i);
+    std::vector<int> nonZeroHexOfyetAnotherCounter;     //python代码里的splits_nibble
+    for(size_t i = 0; i < yetAnotherCounter.size(); ++i)
+        if(yetAnotherCounter[i] != 0)
+            nonZeroHexOfyetAnotherCounter.push_back(i);
     
     std::vector<std::vector<int>> clustring;
-    for(const auto& nibble : nonZeroHexOfyetAnotherSplits)
+    for(const auto& nibble : nonZeroHexOfyetAnotherCounter)
     {
         std::vector<int> p;
         for(size_t i = 0; i < arrs.size(); ++i)
@@ -98,22 +98,21 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
 }
 
 //对应python代码中的show_region函数
-std::string ClustringRegions(const std::vector<std::vector<int>>& arrs)
+std::string ShowRegions(const std::vector<std::vector<int>>& arrs)
 {
-    std::string addressSpace;
-    
+    std::string addressSpace;  
 
     for(int i = 0; i < 32; ++i)
     {
-        std::vector<int> splits(16);
+        std::vector<int> counter(16);
         for(const auto& arr : arrs)
-            splits[arr[i]]++;
+            counter[arr[i]]++;
 
         int numOfGreaterThanZero = 0;
         int indexOfGreaterThanZero = 0;
-        for(size_t j = 0; j < splits.size(); ++j)
+        for(size_t j = 0; j < counter.size(); ++j)
         {
-            if(splits[j] > 0)
+            if(counter[j] > 0)
             {
                 ++numOfGreaterThanZero;
                 indexOfGreaterThanZero = j;
@@ -128,7 +127,7 @@ std::string ClustringRegions(const std::vector<std::vector<int>>& arrs)
     return addressSpace;
 }
 
-void test(const std::string& path)
+void testPartition(const std::string& path)
 {
     std::cout << path << std::endl;
     std::ifstream input(path);
@@ -151,7 +150,7 @@ void test(const std::string& path)
     auto results = SpacePartition(arrs);
     for(auto& r : results)
     {
-        std::cout << ClustringRegions(r) << std::endl;
+        std::cout << ShowRegions(r) << std::endl;
         std::cout << "-------------------------" << std::endl;
     }
     std::cout << results.size() << std::endl;
