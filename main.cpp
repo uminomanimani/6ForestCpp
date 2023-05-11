@@ -27,7 +27,7 @@ int main()
     std::string path = "./seeds.parse";
     std::cout << path << std::endl;
     std::ifstream seedInput(path);
-    if(!input.is_open())
+    if(!seedInput.is_open())
     {
         std::cerr << "Oops, failed to open file." << std::endl;
         return 0;
@@ -48,7 +48,7 @@ int main()
     for(const auto& r : results)
     {
         auto x = OutlierSeedDetection(r, 12.0f);
-        ShowRegions(x.first);
+        cout << ShowRegions(x.first) << endl;
     }
 
     return 0;

@@ -6,7 +6,6 @@
 std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>> OutlierSeedDetection(const std::vector<std::vector<int>>& arrs, float threshold)
 {
     std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>> returnValue;
-    std::vector<int> a;
     std::vector<float> weight(arrs.size());
 
     for(int i = 0; i < 32; ++i)
