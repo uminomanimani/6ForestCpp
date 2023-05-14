@@ -9,47 +9,90 @@
 
 using namespace std;
 
-int main()
+void Preprocession()
 {
     ifstream input("./seeds");
     ofstream output("./seeds.parse");
-
     string address;
     while(getline(input, address))
     {
         std::string parsed = std::move(Parse(address));
         output << parsed << endl;
     }
-
     input.close();
     output.close();
+}
 
-    std::string path = "./seeds.parse";
-    std::cout << path << std::endl;
-    std::ifstream seedInput(path);
-    if(!seedInput.is_open())
-    {
-        std::cerr << "Oops, failed to open file." << std::endl;
-        return 0;
-    }
+void Baseline()
+{
+    ifstream input("./seeds.parse");
+
     std::string line;
     std::vector<std::vector<int>> arrs;
 
-    while(getline(seedInput, line))
+    while (getline(input, line))
     {
         std::vector<int> arr;
-        for(auto& i : line)
+        for (auto &i : line)
             arr.push_back(hexCharToInt(i));
         arrs.push_back(arr);
     }
-    input.close();
-    auto results = SpacePartition(arrs, 16);
 
-    for(const auto& r : results)
+    auto r = std::move(SpacePartition(arrs, SeedClusteringWithLeftMostIndex, 16));
+    std::vector<int> areaCount;
+    for (const auto &x : r)
     {
-        auto x = OutlierSeedDetection(r, 12.0f);
-        cout << ShowRegions(x.first) << endl;
+        auto p = std::move(ClusteringRegion(x));
+        int counter = 0;
+        for (const auto &c : p)
+            if (c == '*') ++counter;
+        areaCount.push_back(counter);
+    }
+    ofstream output("./Baseline.txt");
+    for (const auto &x : areaCount)
+        output << x << endl;
+    output.close();
+    input.close();
+}
+
+void Experiment()
+{
+    ifstream input("./seeds.parse");
+
+    std::string line;
+    std::vector<std::vector<int>> arrs;
+
+    while (getline(input, line))
+    {
+        std::vector<int> arr;
+        for (auto &i : line)
+            arr.push_back(hexCharToInt(i));
+        arrs.push_back(arr);
     }
 
+    auto r = std::move(SpacePartition(arrs, SeedClusteringWithMaxCovering, 16));
+    std::vector<int> areaCount;
+    for (const auto &x : r)
+    {
+        auto i = std::move(OutlierSeedDetection(x, 4.0f));
+        auto p = std::move(ClusteringRegion(i.first));
+        int counter = 0;
+        for (const auto &c : p)
+            if (c == '*') ++counter;
+        areaCount.push_back(counter);
+    }
+    ofstream output("./Experiment.txt");
+    for (const auto &x : areaCount)
+    output << x << endl;
+    output.close();
+    
+    input.close();
+}
+
+int main()
+{
+    Preprocession();
+    Baseline();
+    Experiment();
     return 0;
 }
