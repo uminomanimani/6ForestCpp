@@ -133,6 +133,13 @@ std::string ClusteringRegion(const std::vector<std::vector<int>> &arrs)
 {
     std::string addressSpace;
 
+    if (arrs.size() == 1)
+    {
+        for (const auto &x : arrs[0])
+            addressSpace.push_back(intToHexChar(x));
+        return addressSpace;
+    }
+
     for (int i = 0; i < 32; ++i)
     {
         std::vector<int> counter(16);
