@@ -67,7 +67,6 @@ set(CMAKE_CXX_STANDARD 11)
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>SheetJS Table Export</title>
 </head>
 
 <body>
