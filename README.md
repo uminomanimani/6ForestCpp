@@ -189,7 +189,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 而在```threshold```固定的情况下，增加 $\beta$ 的值，同样会造成两组扫描空间的急剧上升。这是因为， $\beta$ 指定了```SpacePartition```对种子簇停止划分的临界值，该值越大，那么停止搜索的时候种子簇大小越大。种子簇越大，那么不同特征的种子在簇中出现的概率也越大，这增加了自由维出现的概率。
 
-最后，在小 $\beta$ 和```threshold```的情况下（如$\beta = 8$ ，threshold=4），使用```maxCovering```指标和```OutlierSeedDetection```方法对种子簇进行划分会显著减少自由维的数量，这使得待搜索的空间大大减少。因此，在实际应用中，我们可以指定一个合适的 $\beta$ 和```threshold```来满足扫描需要。
+最后，在小 $\beta$ 和```threshold```的情况下（如 $\beta = 8$ ，threshold=4），使用```maxCovering```指标和```OutlierSeedDetection```方法对种子簇进行划分会显著减少自由维的数量，这使得待搜索的空间大大减少。因此，在实际应用中，我们可以指定一个合适的 $\beta$ 和```threshold```来满足扫描需要。
 
 ### 鸣谢
 
