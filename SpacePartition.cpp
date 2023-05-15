@@ -132,6 +132,7 @@ std::vector<std::vector<int>> SeedClusteringWithMaxCovering(const std::vector<st
 std::string ClusteringRegion(const std::vector<std::vector<int>> &arrs)
 {
     std::string addressSpace;
+    if(arrs.size() == 0) return addressSpace;
     if (arrs.size() == 1)
     {
         for (const auto &x : arrs[0])
