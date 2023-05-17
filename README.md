@@ -31,7 +31,7 @@
 
 ### 说明
 
-本项目[地址](https://github.com/uminomanimani/6ForestCpp/)。
+原项目[地址](https://github.com/Lab-ANT/6Forest)，本项目[地址](https://github.com/uminomanimani/6ForestCpp/)。
 
 #### 需求
 ```
