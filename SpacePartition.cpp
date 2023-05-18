@@ -3,7 +3,7 @@
 #include <queue>
 #include <string>
 #include <fstream>
-#include <iostream>
+// #include <iostream>
 
 // 对应python代码中的DHC函数
 std::vector<std::vector<std::vector<int>>> SpacePartition(const std::vector<std::vector<int>> &arrs, std::vector<std::vector<int>> (*pSeedClustering)(const std::vector<std::vector<int>> &), int beta = 16)
@@ -164,32 +164,3 @@ std::string ClusteringRegion(const std::vector<std::vector<int>> &arrs)
     }
     return addressSpace;
 }
-
-// void testPartition(const std::string &path)
-// {
-//     std::cout << path << std::endl;
-//     std::ifstream input(path);
-//     if (!input.is_open())
-//     {
-//         std::cerr << "Oops, failed to open file." << std::endl;
-//         return;
-//     }
-//     std::string line;
-//     std::vector<std::vector<int>> arrs;
-
-//     while (getline(input, line))
-//     {
-//         std::vector<int> arr;
-//         for (auto &i : line)
-//             arr.push_back(hexCharToInt(i));
-//         arrs.push_back(arr);
-//     }
-//     input.close();
-//     auto results = SpacePartition(arrs, SeedClusteringWithMaxCovering);
-//     for (auto &r : results)
-//     {
-//         std::cout << ClusteringRegion(r) << std::endl;
-//         std::cout << "-------------------------" << std::endl;
-//     }
-//     std::cout << results.size() << std::endl;
-// }
