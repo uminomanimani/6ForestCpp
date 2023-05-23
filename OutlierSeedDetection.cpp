@@ -15,7 +15,7 @@ std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>> OutlierS
             ++counter[arr[i]];
 
         int numOfGreaterThanZero = 0;
-        for (size_t j = 0; j < counter.size(); ++j)
+        for (decltype(counter.size()) j = 0; j < counter.size(); ++j)
             if (counter[j] > 0)
                 ++numOfGreaterThanZero;
 
