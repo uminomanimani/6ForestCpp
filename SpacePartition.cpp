@@ -39,7 +39,7 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
         yetAnotherCounter[arr[index]]++;
 
     std::vector<int> nonZeroHexOfyetAnotherCounter; // python代码里的splits_nibble
-    for (size_t i = 0; i < yetAnotherCounter.size(); ++i)
+    for (decltype(yetAnotherCounter.size()) i = 0; i < yetAnotherCounter.size(); ++i)
         if (yetAnotherCounter[i] != 0)
             nonZeroHexOfyetAnotherCounter.push_back(i);
 
@@ -116,7 +116,7 @@ std::vector<std::vector<int>> SeedClusteringWithMaxCovering(const std::vector<st
     }
     int maxCoveringIndex = 0;
     int maxCovering = -1;
-    for (size_t i = 0; i < covering.size(); ++i)
+    for (decltype(covering.size()) i = 0; i < covering.size(); ++i)
         if (covering[i] > maxCovering)
         {
             maxCovering = covering[i];
@@ -148,7 +148,7 @@ std::string ClusteringRegion(const std::vector<std::vector<int>> &arrs)
 
         int numOfGreaterThanZero = 0;
         int indexOfGreaterThanZero = 0;
-        for (size_t j = 0; j < counter.size(); ++j)
+        for (decltype(counter.size()) j = 0; j < counter.size(); ++j)
         {
             if (counter[j] > 0)
             {
