@@ -34,10 +34,9 @@
 原项目[地址](https://github.com/Lab-ANT/6Forest)，本项目[地址](https://github.com/uminomanimani/6ForestCpp/)。
 
 #### 需求
-```
-Python >= 3.8
-C++ >= 11
-```
+
+- Python >= 3.8
+- C++ >= 11
 
 #### 构建项目
 如果您使用的编译器是g++，那么需要在编译的时候指定```-std=c++11```选项，即：
