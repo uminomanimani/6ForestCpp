@@ -1,6 +1,6 @@
-*.h text eol=crlf
-*.cpp text eol=crlf
-*.txt text eol=crlf
-*.parse text eol=crlf
-*.py text eol=crlf
+*.h text eol=lf
+*.cpp text eol=lf
+*.txt text eol=lf
+*.parse text eol=lf
+*.py text eol=lf
 *.pptx binary
