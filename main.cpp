@@ -97,7 +97,7 @@ std::vector<int> Experiment(float threshold, int beta)
 
 std::pair<float, int> ArgumentsParse(int argc, char **argv)
 {
-    if(argc != 5) throw std::invalid_argument("Invalid argument numbers.");
+    if(argc != 5) throw std::invalid_argument("Invalid arguments number.");
     int option;
     int beta = 0;
     float threshold = 0.0f;
@@ -106,12 +106,12 @@ std::pair<float, int> ArgumentsParse(int argc, char **argv)
         switch (option) {
             case 'b':
                 beta = std::stoi(optarg);
-                if (beta < 0) throw std::invalid_argument("beta must greater than 0.");
+                if (beta < 0) throw std::invalid_argument("beta must be greater than 0.");
                 returnValue.second = beta;
                 break;
             case 't':
                 threshold = std::stof(optarg);
-                if(threshold < 0) throw std::invalid_argument("threshold must greater than 0.");
+                if(threshold < 0) throw std::invalid_argument("threshold must be greater than 0.");
                 returnValue.first = threshold;
                 break;
             case '?':
