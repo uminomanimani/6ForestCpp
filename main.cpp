@@ -6,44 +6,42 @@
 #include <iomanip>
 #include <vector>
 #include <fstream>
-
-using namespace std;
-
-int beta = 256;
-float threshold = 8.0f;
+#include <utility>
+#include <exception>
+#include <getopt.h>
 
 void Preprocession()
 {
-    ifstream input("./seeds");
-    ofstream output("./seeds.parse");
-    string address;
-    while(getline(input, address))
+    std::ifstream input("./seeds");
+    std::ofstream output("./seeds.parse");
+    std::string address;
+    while(std::getline(input, address))
     {
-        string parsed = move(Parse(address));
-        output << parsed << endl;
+        std::string parsed = move(Parse(address));
+        output << parsed << std::endl;
     }
     input.close();
     output.close();
 }
 
-vector<int> Baseline()
+std::vector<int> Baseline(int beta)
 {
-    ifstream input("./seeds.parse");
+    std::ifstream input("./seeds.parse");
 
-    string line;
-    vector<vector<int>> arrs;
+    std::string line;
+    std::vector<std::vector<int>> arrs;
 
-    while (getline(input, line))
+    while (std::getline(input, line))
     {
-        vector<int> arr;
+        std::vector<int> arr;
         for (auto &i : line)
             arr.push_back(hexCharToInt(i));
         arrs.push_back(arr);
     }
     input.close();
-    ofstream output("./Baseline.txt");
+    std::ofstream output("./Baseline.txt");
     auto r = move(SpacePartition(arrs, SeedClusteringWithLeftMostIndex, beta));
-    vector<int> areaCount;
+    std::vector<int> areaCount;
     for (const auto &x : r)
     {
         auto p = move(ClusteringRegion(x));
@@ -55,33 +53,34 @@ vector<int> Baseline()
     }
     
     for (const auto &x : areaCount)
-        output << x << endl;
+        output << x << std::endl;
     output.close();
     return areaCount;
 }
 
-vector<int> Experiment()
+std::vector<int> Experiment(float threshold, int beta)
 {
-    ifstream input("./seeds.parse");
+    std::ifstream input("./seeds.parse");
+    std::string line;
+    std::vector<std::vector<int>> arrs;
 
-    string line;
-    vector<vector<int>> arrs;
-
-    while (getline(input, line))
+    while (std::getline(input, line))
     {
-        vector<int> arr;
+        std::vector<int> arr;
         for (auto &i : line)
             arr.push_back(hexCharToInt(i));
         arrs.push_back(arr);
     }
+
     input.close();
-    ofstream output("./Experiment.txt");
-    auto r = move(SpacePartition(arrs, SeedClusteringWithMaxCovering, beta));
-    vector<int> areaCount;
+
+    std::ofstream output("./Experiment.txt");
+    auto r = std::move(SpacePartition(arrs, SeedClusteringWithMaxCovering, beta));
+    std::vector<int> areaCount;
     for (const auto &x : r)
     {
-        auto i = move(OutlierSeedDetection(x, threshold));
-        auto p = move(ClusteringRegion(i.first));
+        auto i = std::move(OutlierSeedDetection(x, threshold));
+        auto p = std::move(ClusteringRegion(i.first));
         int counter = 0;
         // output << p << endl;
         for (const auto &c : p)
@@ -90,16 +89,61 @@ vector<int> Experiment()
     }
     
     for (const auto &x : areaCount)
-        output << x << endl;
+        output << x << std::endl;
     output.close();    
     
     return areaCount;
 }
 
-int main()
+std::pair<float, int> ArgumentsParse(int argc, char **argv)
 {
+    if(argc != 5) throw std::invalid_argument("Invalid argument");
+    int option;
+    int beta = 0;
+    float threshold = 0.0f;
+    std::pair<float, int> returnValue;
+    while ((option = getopt(argc, argv, "b:t:")) != -1) {
+        switch (option) {
+            case 'b':
+                beta = std::stoi(optarg);
+                if (beta < 0) throw std::invalid_argument("beta must greater than 0.");
+                returnValue.second = beta;
+                break;
+            case 't':
+                threshold = std::stof(optarg);
+                if(threshold < 0) throw std::invalid_argument("threshold must greater than 0.");
+                returnValue.first = threshold;
+                break;
+            case '?':
+                break;
+            default:
+                break;
+        }
+    }
+    return returnValue;
+}
+
+int main(int argc, char **argv)
+{
+    int beta = 0;
+    float threshold = 0.0f;
+    try
+    {
+        auto arguments = std::move(ArgumentsParse(argc, argv));
+        threshold = arguments.first;
+        beta = arguments.second;
+    }
+    catch(const std::exception& e)
+    {
+        std::endl(std::cerr << e.what());
+        std::endl(std::cerr << "Usage");
+        std::endl(std::cerr);
+        std::endl(std::cerr << "  " << argv[0] << " -b <beta[positive int]> -t <threshold[positive float]>");
+        return 0;
+    }
+
     Preprocession();
-    Baseline();
-    Experiment();
+    Baseline(beta);
+    Experiment(threshold, beta);
     return 0;
 }
