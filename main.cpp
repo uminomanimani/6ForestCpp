@@ -97,7 +97,7 @@ std::vector<int> Experiment(float threshold, int beta)
 
 std::pair<float, int> ArgumentsParse(int argc, char **argv)
 {
-    if(argc != 5) throw std::invalid_argument("Invalid argument");
+    if(argc != 5) throw std::invalid_argument("Invalid argument numbers.");
     int option;
     int beta = 0;
     float threshold = 0.0f;
