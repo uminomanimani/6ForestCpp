@@ -53,9 +53,9 @@ set(CMAKE_CXX_STANDARD 11)
 ```
 
 #### 执行代码
-请确保可执行文件，```seeds```文件以及```evaluate.py```文件在同一文件夹下。在该文件夹下执行：
+请确保可执行文件，```seeds```文件以及```evaluate.py```文件在同一文件夹下```-t```指定了```threshold```，```-b```指定了```beta```。在该文件夹下执行：
 ```bash
-./main & python ./evaluate.py
+./main -t 2.5 -b 16 & python ./evaluate.py
 ```
 会在同一目录下生成```Baseline.txt```以及```Experiment.txt```文件。```evaluate.py```会根据这两者计算生成的扫描空间的大小并进行比较。
 
