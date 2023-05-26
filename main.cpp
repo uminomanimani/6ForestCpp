@@ -106,12 +106,12 @@ std::pair<float, int> ArgumentsParse(int argc, char **argv)
         switch (option) {
             case 'b':
                 beta = std::stoi(optarg);
-                if (beta < 0) throw std::invalid_argument("beta must be greater than 0.");
+                if (beta <= 0) throw std::invalid_argument("beta must be greater than 0.");
                 returnValue.second = beta;
                 break;
             case 't':
                 threshold = std::stof(optarg);
-                if(threshold < 0) throw std::invalid_argument("threshold must be greater than 0.");
+                if(threshold <= 0) throw std::invalid_argument("threshold must be greater than 0.");
                 returnValue.first = threshold;
                 break;
             case '?':
@@ -132,6 +132,7 @@ int main(int argc, char **argv)
         auto arguments = std::move(ArgumentsParse(argc, argv));
         threshold = arguments.first;
         beta = arguments.second;
+        // std::cout << threshold << ',' << beta << std::endl;
     }
     catch(const std::exception& e)
     {
@@ -139,7 +140,7 @@ int main(int argc, char **argv)
         std::endl(std::cerr << "Usage");
         std::endl(std::cerr);
         std::endl(std::cerr << "  " << argv[0] << " -b <beta[positive int]> -t <threshold[positive float]>");
-        return 0;
+        return -1;
     }
 
     Preprocession();
