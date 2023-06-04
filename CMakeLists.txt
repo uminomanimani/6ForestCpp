@@ -1,9 +1,13 @@
 cmake_minimum_required(VERSION 2.9)
 
-project(6Forest)
+set(CMAKE_CXX_COMPILER g++)
 
 set(CMAKE_CXX_STANDARD 11)
 
-aux_source_directory(. DIR_SRCS)
+project(6Forest)
+
+set(EXECUTABLE_OUTPUT_PATH ..)
+
+aux_source_directory(src DIR_SRCS)
 
 add_executable(main ${DIR_SRCS})

@@ -12,8 +12,8 @@
 
 void Preprocession()
 {
-    std::ifstream input("./seeds");
-    std::ofstream output("./seeds.parse");
+    std::ifstream input("./dataset/seeds");
+    std::ofstream output("./dataset/seeds.parse");
     std::string address;
     while(std::getline(input, address))
     {
@@ -26,7 +26,7 @@ void Preprocession()
 
 std::vector<int> Baseline(int beta)
 {
-    std::ifstream input("./seeds.parse");
+    std::ifstream input("./dataset/seeds.parse");
 
     std::string line;
     std::vector<std::vector<int>> arrs;
@@ -60,7 +60,7 @@ std::vector<int> Baseline(int beta)
 
 std::vector<int> Experiment(float threshold, int beta)
 {
-    std::ifstream input("./seeds.parse");
+    std::ifstream input("./dataset/seeds.parse");
     std::string line;
     std::vector<std::vector<int>> arrs;
 
