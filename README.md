@@ -37,27 +37,16 @@
 
 - Python >= 3.8
 - C++ >= 11
+- g++ 8.1.0
 
-#### 构建项目
-如果您使用的编译器是g++，那么需要在编译的时候指定```-std=c++11```选项，即：
-```bash
-g++ -std=c++11 -o main *.cpp
+#### 构建项目并执行代码
 ```
-如果编译器是clang++，那么需要指定```-std=c++14```：
-```bash
-clang++ -std=c++14 -o main *.cpp
+sh run.sh
 ```
-在使用cmake编译时，也需要在```CMakeLists.txt```中指定相应的标准，例如指定C++11标准：
-```cmake
-set(CMAKE_CXX_STANDARD 11)
+如果你有cmake:
 ```
-
-#### 执行代码
-请确保可执行文件，```seeds```文件以及```evaluate.py```文件在同一文件夹下```-t```指定了```threshold```，```-b```指定了```beta```。在该文件夹下执行：
-```bash
-./main -t 2.5 -b 16 & python ./evaluate.py
+sh run_cmake.sh
 ```
-会在同一目录下生成```Baseline.txt```以及```Experiment.txt```文件。```evaluate.py```会根据这两者计算生成的扫描空间的大小并进行比较。
 
 ### 结果
 
