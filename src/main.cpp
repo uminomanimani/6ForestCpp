@@ -17,7 +17,7 @@ void Preprocession()
     std::string address;
     while(std::getline(input, address))
     {
-        std::string parsed = move(Parse(address));
+        std::string parsed = std::move(Parse(address));
         output << parsed << std::endl;
     }
     input.close();
@@ -40,11 +40,11 @@ std::vector<int> Baseline(int beta)
     }
     input.close();
     std::ofstream output("./Baseline.txt");
-    auto r = move(SpacePartition(arrs, SeedClusteringWithLeftMostIndex, beta));
+    auto r = std::move(SpacePartition(arrs, SeedClusteringWithLeftMostIndex, beta));
     std::vector<int> areaCount;
     for (const auto &x : r)
     {
-        auto p = move(ClusteringRegion(x));
+        auto p = std::move(ClusteringRegion(x));
         // output << p << endl;
         int counter = 0;
         for (const auto &c : p)
