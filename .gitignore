@@ -1,5 +1,8 @@
 .vscode/
 build/
+Baseline.txt
+Experiment.txt
+main
 
 # Prerequisites
 *.d
