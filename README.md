@@ -67,7 +67,7 @@ sh run_without_cmake.sh #为什么名字要取这么长呢，因为如果叫做r
 <body>
     <table>
         <tr>
-            <td colspan="2" t="z" id="sjs-A1"></td>
+            <td colspan="2" t="z" id="sjs-A1">indices</td>
             <td rowspan="2" t="s" id="sjs-C1">Baseline</td>
             <td rowspan="2" t="s" id="sjs-D1">Experiment</td>
         </tr>
