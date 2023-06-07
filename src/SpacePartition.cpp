@@ -55,21 +55,23 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
     return clustring;
 }
 
-//用leftMostIndex作为筛选，给baseline用
+// 用leftMostIndex作为筛选，给baseline用
 std::vector<std::vector<int>> SeedClusteringWithLeftMostIndex(const std::vector<std::vector<int>> &arrs)
 {
     int leftMostIndex = -1;
-    for(size_t i = 0; i < 32; ++i)
+    for (size_t i = 0; i < 32; ++i)
     {
         std::vector<int> counter(16);
         for (const auto &arr : arrs)
             counter[arr[i]]++;
 
         int nonZero = 0;
-        for(const auto &x : counter)
-            if(x != 0) ++nonZero;
-        
-        if(nonZero == 1) continue;
+        for (const auto &x : counter)
+            if (x != 0)
+                ++nonZero;
+
+        if (nonZero == 1)
+            continue;
         else
         {
             leftMostIndex = i;
@@ -124,7 +126,7 @@ std::vector<std::vector<int>> SeedClusteringWithMaxCovering(const std::vector<st
         }
     if (maxCovering - leftMostCovering <= maxCoveringIndex - leftMostIndex)
         maxCoveringIndex = leftMostIndex;
-    
+
     return std::move(SeedClustering(arrs, maxCoveringIndex));
 }
 
@@ -132,7 +134,8 @@ std::vector<std::vector<int>> SeedClusteringWithMaxCovering(const std::vector<st
 std::string ClusteringRegion(const std::vector<std::vector<int>> &arrs)
 {
     std::string addressSpace;
-    if(arrs.size() == 0) return addressSpace;
+    if (arrs.size() == 0)
+        return addressSpace;
     if (arrs.size() == 1)
     {
         for (const auto &x : arrs[0])
