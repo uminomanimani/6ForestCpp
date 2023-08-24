@@ -1,6 +1,6 @@
 .vscode/
 build/
-.parse
+*.parse
 Baseline.txt
 Experiment.txt
 main
