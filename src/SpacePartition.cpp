@@ -43,16 +43,16 @@ std::vector<std::vector<int>> SeedClustering(const std::vector<std::vector<int>>
         if (yetAnotherCounter[i] != 0)
             nonZeroHexOfyetAnotherCounter.push_back(i);
 
-    std::vector<std::vector<int>> clustring;
+    std::vector<std::vector<int>> clustering;
     for (const auto &nibble : nonZeroHexOfyetAnotherCounter)
     {
         std::vector<int> p;
         for (size_t i = 0; i < arrs.size(); ++i)
             if (arrs[i][index] == nibble)
                 p.push_back(i);
-        clustring.push_back(p);
+        clustering.push_back(p);
     }
-    return clustring;
+    return clustering;
 }
 
 // 用leftMostIndex作为筛选，给baseline用
